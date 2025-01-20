@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lux Cargo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lux Cargo</h1>
+    <p>Введите трек-код для проверки</p>
+    <div class="search-container">
+        <input type="text" id="trackInput" placeholder="Введите трек-код">
+        <button onclick="searchTrack()">Проверить</button>
+    </div>
+    
+    <div class="result" id="resultMessage"></div>
+
+    <table id="trackTable">
+        <thead>
+            <tr>
+                <th>Трек-код</th>
+                <th>Дата прибытия</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>12345</td>
+                <td>2025-01-10</td>
+            </tr>
+            <tr>
+                <td>67890</td>
+                <td>2025-01-15</td>
+            </tr>
+            <tr>
+                <td>JT5340536654787</td>
+                <td>2025-01-05</td>
+            </tr>
+            <!-- Добавьте остальные строки здесь -->
+        </tbody>
+    </table>
+
+    <script>
+        function searchTrack() {
+            const input = document.getElementById('trackInput').value.trim();
+            const table = document.getElementById('trackTable');
+            const rows = table.getElementsByTagName('tr');
+            const resultMessage = document.getElementById('resultMessage');
+            let found = false;
+
+            // Очищаем предыдущее сообщение результата
+            resultMessage.textContent = '';
+
+            for (let i = 1; i < rows.length; i++) { // Пропускаем заголовок
+                const cells = rows[i].getElementsByTagName('td');
+                if (cells[0].textContent.trim() === input) {
+                    resultMessage.innerHTML = `Найден трек-код: <strong>${cells[0].textContent}</strong><br>Дата прибытия: <strong>${cells[1].textContent}</strong>`;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                resultMessage.textContent = 'Трек-код не найден!';
+            }
+        }
+    </script>
+</body>
+</html>
